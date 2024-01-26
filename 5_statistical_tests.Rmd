@@ -1,0 +1,91 @@
+---
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+
+```{r }
+ROOT_PATH = 'C:/Users/mehes/Desktop/These/R/ACTUAL_FOLDER/'
+CONTOUR_ALGORITHM = 'Active_Contour'
+file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Dataset/dataCC_distance.csv", sep = "")
+dataCC<- read.csv(file_name,header=TRUE)
+file_name <- paste(ROOT_PATH,"Data/all_cont.csv", sep = "")
+allcont<- read.csv(file_name,header=TRUE)
+list_model = list("HORIZ_BIN_CAT","NS_HORIZ","NS_XY_HORIZ_DIST", "NS_XY_HORIZ_BIN_CAT","NS_XY_NS_HORIZ","NS_XY_HORIZ_DUMMY")
+```
+
+
+```{r }
+library(lmtest)
+library(Matrix)
+
+#Je vais faire une loop avec chaque model, pour chaque model on va tout imprimer et avoir le p-value qui correspond
+
+MODEL_FEATURE  = 'NS_XY'
+list_model = list("NS_HORIZ","HORIZ_BIN_CAT","NS_XY_HORIZ_DIST", "NS_XY_HORIZ_BIN_CAT","NS_XY_NS_HORIZ","NS_XY_HORIZ_DUMMY")
+
+file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Saved_Models/NS_XY.rds", sep = "")
+naomi_model <- readRDS(file = file_name)
+print("Naomi Model (NS_XY):")
+print(summary(naomi_model))
+file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Saved_Models/EMPTY_MODEL.rds", sep = "")
+empty_model <- readRDS(file = file_name)
+print("Empty Model :")
+print(summary(empty_model))
+```
+
+```{r}
+
+model_info<-function(model_feat = MODEL_FEATURE )
+{
+  file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Saved_Models/",model_feat,".rds", sep = "")
+  model <- readRDS(file = file_name)
+  print(summary(model))
+  #compare model with naomi model
+  lrt_naomi <- lrtest(model,naomi_model)
+  #global_p_value_naomi <- 1 - pchisq(lrt_naomi$Chisq[2], df = lrt_naomi$Df[2])
+  print('LRT : compare model with naomi model')
+  print(lrt_naomi)
+  #compare model with empty model
+  lrt_empty <- lrtest(model,empty_model)
+  print('LRT : compare model with empty model')
+  print(lrt_empty)
+return
+}
+```
+
+
+
+
+```{r}
+print(list_model[1])
+model_info(list_model[1])
+```
+
+```{r}
+print(list_model[2])
+model_info(list_model[2])
+```
+
+```{r}
+print(list_model[3])
+model_info(list_model[3])
+```
+
+```{r}
+print(list_model[4])
+model_info(list_model[4])
+```
+
+```{r}
+print(list_model[5])
+model_info(list_model[5])
+```
+
+```{r}
+print(list_model[6])
+model_info(list_model[6])
+```
+
