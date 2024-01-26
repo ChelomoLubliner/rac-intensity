@@ -14,7 +14,8 @@ The location of randomly acquired characteristics (RACs) is modeled here as a po
 A. locations_data.CSV: A data set of RAC locations. The first three columns are used. The first column indicates the shoe number. The second indicates the x axis of the RAC location . The third indicates the Y axis of the RAC location.
 
 B. contacts_data.txt: A data set of the contact surface This is a pixel data where 1 indicates there is a contact surface and 0 otherwise. There are 307 columns in each shoe and 395 is the number of rows. The number of shoes is 387 but 386 is the number of shoes with RACs - shoe 127 has no RACS.
+The dataset is here : https://github.com/naomikap/rac-intensity/tree/master/Data
 
-If using the data, please cite the current paper and Wiesner, S., Shor, Y., Tsach, T., Kaplan-Damary, N., & Yekutieli, Y. (2020). Dataset of Digitized RACs and Their Rarity Score Analysis for Strengthening Shoeprint Evidence. Journal of Forensic Sciences, 65(3), 762-774. Last updated: 8/31/2020
+If using the data, please cite the  paper https://arxiv.org/abs/1912.08272 and Wiesner, S., Shor, Y., Tsach, T., Kaplan-Damary, N., & Yekutieli, Y. (2020). Dataset of Digitized RACs and Their Rarity Score Analysis for Strengthening Shoeprint Evidence. Journal of Forensic Sciences, 65(3), 762-774. Last updated: 8/31/2020
 
-These analyses are created as part of the manuscript "Spatial modeling of randomly acquired characteristics on outsoles with application to forensic shoeprint analysis": https://arxiv.org/abs/1912.08272.
+
