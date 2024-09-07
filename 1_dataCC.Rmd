@@ -3,7 +3,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r }
-ROOT_PATH = 'C:/Users/mehes/Desktop/These/R/ACTUAL_FOLDER/'
+ROOT_PATH = 'YOUR_PATH'
 
 ```
 

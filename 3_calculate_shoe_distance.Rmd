@@ -8,8 +8,8 @@ output: html_document
 
 ```{r }
 library(dplyr)
-ROOT_PATH = 'C:/Users/Chelomo/Desktop/These/R/ACTUAL_FOLDER/'
-CONTOUR_ALGORITHM = 'Convex'
+ROOT_PATH = 'YOUR_PATH'
+CONTOUR_ALGORITHM = 'Active_Contour'
 # 'Convex'  or 'Active_Contour'
 IMAGE_NUMBER  = 171
 # 116 / 135
@@ -35,7 +35,7 @@ contour_df <- read.csv(file_name,header=TRUE)
 
 
 ```{r }
-calculate_distance <- function(x1, y1, x2, y2) {
+calculate_distaxnce <- function(x1, y1, x2, y2) {
   sqrt((x1 - x2)^2 + (y1 - y2)^2)
 }
 
@@ -100,12 +100,11 @@ categorical_distance <- function(coordinates, shoe_num){
 #MIN DISTANCE
 min_dist_mean <-   mean(coordinates$min_dist)
 coordinates <- coordinates %>% mutate(min_dist_cat = ifelse(min_dist > 0.1, 1, 0))
-coordinates <- coordinates %>% mutate(min_dist_cat_2 = ifelse(min_dist > 0.2, 1, 0))
+
 
 # HORIZ DISTANCE
 horiz_dist_mean <- mean(coordinates$horiz_dist)
 coordinates <- coordinates %>% mutate(horiz_dist_cat = ifelse(horiz_dist > 0.1, 1, 0))
-coordinates <- coordinates %>% mutate(horiz_dist_cat_2 = ifelse(horiz_dist > 0.2, 1, 0))
 
 file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Shoes_Distance/dist_shoe_",shoe_num,".csv", sep = "")
   write.csv(coordinates,file_name, row.names = FALSE)
@@ -115,7 +114,6 @@ file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Shoes_Distance/dist_shoe_",sh
 ```
 
 ```{r }
-#chaussures interessantes : 376 | 236 | 208 | 107 | 32
 xcoor <- t(matrix(rep((-col_shoe/2+1:col_shoe)*rel_Y_cord/rel_col_shoe,row_shoe),col_shoe,row_shoe))
 ycoor <- -matrix(rep((-row_shoe/2+1:row_shoe)*rel_Y_cord/rel_col_shoe,col_shoe),row_shoe,col_shoe)
 xy <- expand.grid(xcoor[1,],ycoor[,1])#307 * 395 
@@ -132,16 +130,9 @@ rm(xcoor)
 rm(ycoor)
 gc()
 ```
-```{r }
-horiz_dist_mean <- mean(xy$horiz_dist)
-xy <- xy %>% mutate(horiz_dist_cat = ifelse(horiz_dist > horiz_dist_mean, 1, 0))
-value_counts <- table(xy$horiz_dist_cat)
-cat('value_counts', value_counts,'mean : ', horiz_dist_mean, '\n')
-new_value <- max(xy$horiz_dist) - 0.2
-xy <- xy %>% mutate(horiz_dist_cat = ifelse(horiz_dist > new_value, 1, 0))
-value_counts <- table(xy$horiz_dist_cat)
-cat('value_counts', value_counts,'new_value : ', new_value, '\n')
 
-```
+
+
+
 
 

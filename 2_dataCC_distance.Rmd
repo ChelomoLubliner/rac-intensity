@@ -12,7 +12,7 @@ library(dplyr)
 ```
 
 ```{r }
-ROOT_PATH = 'C:/Users/Chelomo/Desktop/These/R/ACTUAL_FOLDER/'
+ROOT_PATH = 'YOUR_PATH'
 CONTOUR_ALGORITHM = 'Active_Contour'
 #'Convex' or 'Active_Contour'
 
@@ -64,6 +64,7 @@ for (i in 1:386)
 }
 # at this stade, in convex_pix_use we have for each shoe, each point of the contour
 ```
+
 
 ```{r contour_distance_3}
 #convex_poix to dataframe will be easier
@@ -156,15 +157,11 @@ new_data <- calculate_min_horiz_distance(new_data, contour_df)
 ```{r DIST TO BINARY CATEGORY}
 file_name <- paste(ROOT_PATH, CONTOUR_ALGORITHM, "/Dataset/dataCC_distance.csv", sep = "")
 new_data <- read.csv(file_name,header=TRUE)
-#MIN DISTANCE
-#min_dist_mean <- mean(new_data$min_dist)
-new_data <- new_data %>% mutate(min_dist_cat = ifelse(min_dist > 0.1, 1, 0))
-new_data <- new_data %>% mutate(min_dist_cat_2 = ifelse(min_dist > 0.2, 1, 0))
+
 
 # HORIZ DISTANCE
 #horiz_dist_mean <- mean(new_data$horiz_dist)
 new_data <- new_data %>% mutate(horiz_dist_cat = ifelse(horiz_dist > 0.1, 1, 0))
-new_data <- new_data %>% mutate(horiz_dist_cat_2 = ifelse(horiz_dist > 0.1, 1, 0))
 ```
 
 
@@ -187,22 +184,5 @@ rm(new_data)
 gc()
 
 
-```
-
-
-
-
-
-```{r contour_distance_4}
-#library(plotly)
-# shoes_to_check <- 126
-# filtered_df1 <- new_data[new_data$shoe == shoes_to_check, ][,c('shoe','x','y')]
-# filtered_df2 <- contour_df[contour_df$shoe == shoes_to_check, ][,c('shoe','x','y')]
-# # Create a combined data frame for plotting
-# combined_df <- rbind(transform(filtered_df1, source = "new_data"),
-#                       transform(filtered_df2, source = "contour_df"))
-# 
-# plot <- plot_ly(combined_df, x = ~y, y = ~x, type = "scatter", mode = "markers")
-# plot
 ```
 
